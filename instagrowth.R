@@ -20,11 +20,11 @@ foldList <- function(list){
 ##########################################################################################
 
 # reading in the data
-lhu_dat = read.csv("LHU_stats.csv", header = T)
-mmo_dat = read.csv("MMO_stats.csv", header = T)
-ftm_dat = read.csv("FTM_stats.csv", header = T)
-dru_dat = read.csv("DRU_stats.csv", header = T)
-lmo_dat = read.csv("LMO_stats.csv", header = T)
+lhu_dat = read.csv("data/LHU_stats.csv", header = T)
+mmo_dat = read.csv("data/MMO_stats.csv", header = T)
+ftm_dat = read.csv("data/FTM_stats.csv", header = T)
+dru_dat = read.csv("data/DRU_stats.csv", header = T)
+lmo_dat = read.csv("data/LMO_stats.csv", header = T)
 
 # mmo_dat has the largest interval of observations
 n = length(mmo_dat$Date)
