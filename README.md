@@ -20,3 +20,6 @@ The growth of the accounts is plotted below.
 
 ![](figs/growth.png)
 
+_TODO_ Follow-back ratios
+
+_TODO_ Daily gains time series
