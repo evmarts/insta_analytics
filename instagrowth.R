@@ -15,6 +15,22 @@ foldList <- function(list){
   return(folded_list[-1])
 }
 
+fb_plot <- function(dat, acc, col1, col2){
+  total_followed = tail(foldList(dat$Followed), n = 1)
+  total_followers = tail(dat$Followers, n = 1)  - dat$Followers[1]
+  fbr = total_followers/total_followed
+  
+  plot(log(foldList(Followed)) ~ Date, ann = FALSE, dat,type = "l", col = col1, lwd = 3)
+  lines(log((Followers - Followers[1])) ~ Date, dat, col = col2, lwd = 3)
+  title = "Follow back rate,"
+  title(main = paste(title, acc), xlab = "date", ylab = "log(users)", sub = paste("follow-back ratio =", round(fbr,3)))
+  legend("topleft", legend = c( "Followed","Followers"), col = c(col1, col2), lwd = 4, lty= 1:1)
+  
+  f = paste(acc, ".png", sep = "")
+  dev.copy(jpeg,filename=paste("figs/", f, sep = ""),width = 500, height = 500);
+  dev.off ();
+}
+
 ##########################################################################################
 ##############################             DATA            ##############################
 ##########################################################################################
@@ -50,60 +66,20 @@ title(main="Follower growth Aug 28, 2015 - Sept 7, 2016", xlab="date", ylab="fol
 grid(nx = NULL, col = "lightgray", lty = "dotted",lwd = par("lwd"), equilogs = TRUE)
 legend("topleft", legend = c( "@MMO","@LHU", "@FMT", "@DRU", "@LMO"), col = c('darkgoldenrod1', 'orangered', 'magenta', "purple", "blue2"), lwd = 4, lty= 1:1)
 
+# save the fig
+dev.copy(jpeg,filename="figs/growth.png",width = 1000, height = 500);
+dev.off ();
+
 ##########################################################################################
 ##############################      FOLLOW BACK RATIO       ##############################
 ##########################################################################################
 # plotting visualization of follow-back ratios
 
-# follow-back for @MMO
-plot(log(foldList(Followed)) ~ Date, ann = FALSE, mmo_dat,type = "l", col = 'darkgoldenrod1', lwd = 3)
-lines(log((Followers - Followers[1])) ~ Date, mmo_dat, col = "orange", lwd = 3)
-title(main = "Follow back rate, @MMO", xlab = "date", ylab = "log(users)")
-legend("topleft", legend = c( "Followed","Followers"), col = c('darkgoldenrod1', 'orange'), lwd = 4, lty= 1:1)
-# math to determine follow-back ratio
-total_followed_lhu = tail(foldList(lhu_dat$Followed), n = 1)
-total_followers_lhu = tail(lhu_dat$Followers, n = 1)  - lhu_dat$Followers[1]
-lhu_fbr = total_followers_lhu/total_followed_lhu
-
-# follow-back for @LHU
-plot(log(foldList(Followed)) ~ Date, ann = FALSE, lhu_dat,type = "l", col = 'orangered', lwd = 3)
-lines(log((Followers- Followers[1])) ~ Date, lhu_dat, col = "red3", lwd = 3)
-title(main = "Follow back rate, @LHU", xlab = "date", ylab = "log(users)")
-legend("topleft", legend = c( "Followed","Followers"), col = c('orangered', 'red3'), lwd = 4, lty= 1:1)
-# math to determine follow-back ratio
-total_followed_lhu = tail(foldList(lhu_dat$Followed), n = 1)
-total_followers_lhu = tail(lhu_dat$Followers, n = 1)  - lhu_dat$Followers[1]
-lhu_fbr = total_followers_lhu/total_followed_lhu
-
-# follow-back for @DRU
-plot(log(foldList(Followed)) ~ Date, ann = FALSE, dru_dat,type = "l", col = 'purple', lwd = 3)
-lines(log((Followers-Followers[1])) ~ Date, dru_dat, col = "purple3", lwd = 3)
-title(main = "Follow back rate, @DRU", xlab = "date", ylab = "log(users)")
-legend("topleft", legend = c( "Followed","Followers"), col = c('purple', 'purple3'), lwd = 4, lty= 1:1)
-# math to determine follow-back ratio
-total_followed_dru = tail(foldList(dru_dat$Followed), n = 1)
-total_followers_dru = tail(dru_dat$Followers, n = 1)  - dru_dat$Followers[1]
-dru_fbr = (total_followers_dru)/total_followed_dru
-
-# follow-back for @FTM
-plot(log(foldList(Followed)) ~ Date, ann = FALSE, ftm_dat,type = "l", col = 'magenta', lwd = 3)
-lines(log((Followers- Followers[1])) ~ Date, ftm_dat, col = "magenta3", lwd = 3)
-title(main = "Follow back rate, @FTM", xlab = "date", ylab = "log(users)")
-legend("topleft", legend = c( "Followed","Followers"), col = c('magenta', 'magenta3'), lwd = 4, lty= 1:1)
-# math to determine follow-back ratio
-total_followed_ftm = tail(foldList(ftm_dat$Followed), n = 1)
-total_followers_ftm = tail(ftm_dat$Followers, n = 1)  - ftm_dat$Followers[1]
-ftm_fbr = total_followers_ftm/total_followed_ftm
-
-# follow-back for @LMO
-plot(log(foldList(Followed)) ~ Date, ann = FALSE, lmo_dat,type = "l", col = 'blue', lwd = 3)
-lines(log((Followers- Followers[1])) ~ Date, lmo_dat, col = "blue3", lwd = 3)
-title(main = "Follow back rate, @LMO", xlab = "date", ylab = "log(users)")
-legend("topleft", legend = c( "Followed","Followers"), col = c('blue', 'blue3'), lwd = 4, lty= 1:1)
-# math to determine follow-back ratio
-total_followed_lmo = tail(foldList(lmo_dat$Followed), n = 1)
-total_followers_lmo = tail(lmo_dat$Followers, n = 1)  - lmo_dat$Followers[1]
-lmo_fbr = total_followers_lmo/total_followed_lmo
+fb_plot(mmo_dat,'@MMO', 'darkgoldenrod1', 'orange')
+fb_plot(lhu_dat,'@LHU', 'orangered', 'red3')
+fb_plot(dru_dat,'@DRU', 'purple', 'purple3')
+fb_plot(ftm_dat,'@FTM', 'magenta', 'magenta3')
+fb_plot(lmo_dat,'@LMO', 'blue', 'blue3')
 
 # plotting daily follower gains
 plot(Gains ~ Date, mmo_dat,type = "l", ann = FALSE, col = 'darkgoldenrod1', lwd = 3)

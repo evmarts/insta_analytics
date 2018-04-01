@@ -20,6 +20,18 @@ The growth of the accounts is plotted below.
 
 ![](figs/growth.png)
 
-_TODO_ Follow-back ratios
+The main strategy for growing the accounts is a three step process:
+
+1. Look for similar accounts in my niche and scrape the usernames of users who interacted with those accounts. 
+2. Follow those users until 7500 following limit. 
+3. Unfollow all users until at 0 following. 
+
+This is a cheap and easy way of advertising oneself on Instagram. By sending a user a notification that you have followed them, you are advertising yourself to them.
+
+The following plots show the total number of followings given out by the five accounts as well as the total number of followers at that time. 
+
+<img src="./figs/@MMO.png" width="128px" alt=""><img src="./figs/@LHU.png" width="128px" alt=""><img src="./figs/@FTM.png" width="128px" alt=""><img src="./figs/@DRU.png" width="128px" alt=""><img src="./figs/@LMO.png" width="128px" alt="">
+
+Note the follow-back ratio at the bottom of each plot. The follow-back ratio is a good way of determining how well you are targetting users. That is, an account with a high follow-back ratio is one that is advertising itself to a suitable audience. 
 
 _TODO_ Daily gains time series
